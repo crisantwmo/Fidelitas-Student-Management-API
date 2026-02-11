@@ -1,0 +1,6 @@
+[Bb]in/
+[Oo]bj/
+*.db
+.DS_Store
+.vscode/
+appsettings.Development.json
