@@ -4,3 +4,4 @@
 .DS_Store
 .vscode/
 appsettings.Development.json
+secrets.json
