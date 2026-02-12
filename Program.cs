@@ -31,16 +31,17 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// --- 2. CONFIGURACIÓN DEL PIPELINE (MIDDLEWARES) ---
-
-// El escudo protector de excepciones siempre de primero
+// --- 2. MIDDLEWARES ---
 app.UseMiddleware<ExceptionMiddleware>(); 
 
-if (app.Environment.IsDevelopment())
+// Borramos o comentamos el 'if (app.Environment.IsDevelopment())'
+// para que Swagger funcione siempre en Render
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fidelitas API V1");
+    c.RoutePrefix = string.Empty; // <-- Esto hará que la API abra Swagger directamente en la raíz
+});
 
 // Inicialización automática: Crea las tablas en Neon si no existen
 using (var scope = app.Services.CreateScope()) {
